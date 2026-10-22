@@ -133,3 +133,15 @@ html[lang="he"] .foot h3{letter-spacing:0;font-size:.92rem}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
 .hero h1,.hero .lead,.hero .eyebrow{text-shadow:0 2px 18px rgba(0,0,0,.55)}
 @media(max-width:700px){.hero::after{background:linear-gradient(180deg,rgba(13,14,19,.7) 0%,rgba(13,14,19,.35) 28%,rgba(13,14,19,.92) 66%,var(--ink) 100%)}.hero .eyebrow::before{display:none}.hero .eyebrow{font-size:.7rem;letter-spacing:.16em}html[lang="he"] .hero .eyebrow{font-size:.85rem;letter-spacing:0}}
+/* retouches jurés 22/10 */
+html[lang="he"] .hero h1,html[lang="he"] h2{font-weight:300}
+html[lang="he"] .hero h1 em,html[lang="he"] h2 em{font-weight:500}
+section{padding:clamp(72px,9vw,124px) 0}
+.mosaic .a{aspect-ratio:auto;height:100%}
+.hint{font-size:1rem;color:#d4cbb9}
+.reel .snd{width:40px;height:40px;background:rgba(13,14,19,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7cf98' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9v6h4l5 4V5L8 9H4z'/%3E%3Cpath d='M17 9l4 6M21 9l-4 6'/%3E%3C/svg%3E") center/20px no-repeat}
+.reel[aria-pressed="true"] .snd{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7cf98' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9v6h4l5 4V5L8 9H4z'/%3E%3Cpath d='M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11'/%3E%3C/svg%3E")}
+@media(max-width:959px){.side-img{display:none}}
+.reel[data-s="pause"] .snd{width:58px;height:58px;top:calc(50% - 29px);inset-inline-end:calc(50% - 29px);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e7cf98'%3E%3Cpath d='M9 7l9 5-9 5z'/%3E%3C/svg%3E");background-size:26px}
+.reel[data-s="son"] .snd{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7cf98' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9v6h4l5 4V5L8 9H4z'/%3E%3Cpath d='M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11'/%3E%3C/svg%3E")}
+.mosaic .a{position:relative}.mosaic .a img{position:absolute;inset:0}

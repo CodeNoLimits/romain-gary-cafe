@@ -10,14 +10,18 @@ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInter
 d.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
 var book=d.getElementById('reserver');
 new IntersectionObserver(function(es){inBook=es[0].isIntersecting;onScroll()}).observe(book);
-// reels : lecture muette quand visible, son au toucher
+// reels : lecture muette auto seulement sur grand écran (vidéos lourdes), toucher = son, nouveau toucher = pause
 var reels=[].slice.call(d.querySelectorAll('.reel'));
+var auto=matchMedia('(min-width:900px)').matches&&!matchMedia('(prefers-reduced-motion:reduce)').matches&&!(navigator.connection&&navigator.connection.saveData);
+function st(r){var v=r.querySelector('video');r.dataset.s=v.paused?'pause':(v.muted?'muet':'son');r.setAttribute('aria-pressed',String(!v.paused&&!v.muted))}
 var vio=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target.querySelector('video');
- if(e.isIntersecting&&e.intersectionRatio>.6){v.play().catch(function(){})}else{v.pause()}})},{threshold:[0,.6,1]});
-reels.forEach(function(r){var v=r.querySelector('video'),s=r.querySelector('.snd');vio.observe(r);
+ if(!e.isIntersecting){v.pause()}else if(auto&&e.intersectionRatio>.6&&v.muted){v.play().catch(function(){})}})},{threshold:[0,.6,1]});
+reels.forEach(function(r){var v=r.querySelector('video');vio.observe(r);st(r);
+ ['play','pause','volumechange'].forEach(function(n){v.addEventListener(n,function(){st(r)})});
  v.addEventListener('timeupdate',function(){r.style.setProperty('--p',(v.currentTime/v.duration*100||0)+'%')});
- r.addEventListener('click',function(){var on=v.muted;reels.forEach(function(o){var ov=o.querySelector('video');ov.muted=true;o.querySelector('.snd').textContent='🔇';o.setAttribute('aria-pressed','false')});
-  v.muted=!on;s.textContent=on?'🔊':'🔇';r.setAttribute('aria-pressed',String(on));if(on){v.play().catch(function(){})}})});
+ r.addEventListener('click',function(){
+  if(v.paused||v.muted){reels.forEach(function(o){var ov=o.querySelector('video');if(ov!==v){ov.muted=true;if(!auto)ov.pause()}});v.muted=false;v.play().catch(function(){})}
+  else{v.pause()}})});
 var rail=d.querySelector('.rail'),rtl=d.documentElement.dir==='rtl';
 d.querySelectorAll('.rail-nav button').forEach(function(b){b.addEventListener('click',function(){var k=+b.dataset.dir*(rtl?-1:1);rail.scrollBy({left:k*290,behavior:'smooth'})})});
 // réservation
@@ -31,7 +35,8 @@ window.waUrl=function(v){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(
 f.addEventListener('submit',function(ev){ev.preventDefault();
  var v={date:f.date.value,time:f.time.value,people:f.people.value,name:f.name.value.trim(),phone:f.phone.value.trim(),note:f.note.value.trim()},bad=null;
  function chk(n,m){setErr(n,m);if(m&&!bad)bad=n}
- chk('date',!v.date?T.e_date:(v.date<f.date.min?T.e_past:(shabbat(v.date,v.time)?T.e_shabbat:'')));
+ var now=new Date(),past=v.date&&v.time&&new Date(v.date+'T'+v.time)<now;
+ chk('date',!v.date?T.e_date:((v.date<f.date.min||past)?T.e_past:(shabbat(v.date,v.time)?T.e_shabbat:'')));
  chk('time',v.time?'':T.e_time);
  chk('people',(+v.people>=1&&+v.people<=60)?'':T.e_people);
  chk('name',v.name.length>=2?'':T.e_name);

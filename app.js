@@ -26,8 +26,9 @@ var rail=d.querySelector('.rail'),rtl=d.documentElement.dir==='rtl';
 d.querySelectorAll('.rail-nav button').forEach(function(b){b.addEventListener('click',function(){var k=+b.dataset.dir*(rtl?-1:1);rail.scrollBy({left:k*290,behavior:'smooth'})})});
 // réservation
 var f=d.getElementById('resa'), ok=d.getElementById('ok');
-var today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());
-f.date.min=today.toISOString().slice(0,10);
+// heure de Jérusalem, quel que soit le fuseau du visiteur (format « AAAA-MM-JJ HH:MM »)
+function jlm(){return new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Jerusalem',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date())}
+f.date.min=jlm().slice(0,10);
 function setErr(name,msg){var i=f[name],e=d.getElementById('e-'+name);i.setAttribute('aria-invalid',msg?'true':'false');e.textContent=msg||''}
 function shabbat(date,time){var day=new Date(date+'T12:00').getDay(),h=+(time||'12:00').slice(0,2);return (day===5&&h>=15)||(day===6&&h<20)}
 window.buildMsg=function(v){return [T.msgIntro,T.l_date+T.sep+v.date.split('-').reverse().join('/'),T.l_time+T.sep+v.time,T.l_people+T.sep+v.people,T.l_name+T.sep+v.name,T.l_phone+T.sep+v.phone].concat(v.note?[T.l_note+T.sep+v.note]:[]).join('\n')};
@@ -35,7 +36,7 @@ window.waUrl=function(v){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(
 f.addEventListener('submit',function(ev){ev.preventDefault();
  var v={date:f.date.value,time:f.time.value,people:f.people.value,name:f.name.value.trim(),phone:f.phone.value.trim(),note:f.note.value.trim()},bad=null;
  function chk(n,m){setErr(n,m);if(m&&!bad)bad=n}
- var now=new Date(),past=v.date&&v.time&&new Date(v.date+'T'+v.time)<now;
+ var past=v.date&&v.time&&(v.date+' '+v.time)<jlm();
  chk('date',!v.date?T.e_date:((v.date<f.date.min||past)?T.e_past:(shabbat(v.date,v.time)?T.e_shabbat:'')));
  chk('time',v.time?'':T.e_time);
  chk('people',(+v.people>=1&&+v.people<=60)?'':T.e_people);

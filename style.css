@@ -145,3 +145,4 @@ section{padding:clamp(72px,9vw,124px) 0}
 .reel[data-s="pause"] .snd{width:58px;height:58px;top:calc(50% - 29px);inset-inline-end:calc(50% - 29px);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e7cf98'%3E%3Cpath d='M9 7l9 5-9 5z'/%3E%3C/svg%3E");background-size:26px}
 .reel[data-s="son"] .snd{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7cf98' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9v6h4l5 4V5L8 9H4z'/%3E%3Cpath d='M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11'/%3E%3C/svg%3E")}
 .mosaic .a{position:relative}.mosaic .a img{position:absolute;inset:0}
+a[href^="tel:"],bdi{white-space:nowrap}

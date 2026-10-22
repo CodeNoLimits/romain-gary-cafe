@@ -131,3 +131,5 @@ html[lang="he"] .foot h3{letter-spacing:0;font-size:.92rem}
 @media(min-width:900px){.dock{display:none}}
 @media(max-width:640px){.nav .btn{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
+.hero h1,.hero .lead,.hero .eyebrow{text-shadow:0 2px 18px rgba(0,0,0,.55)}
+@media(max-width:700px){.hero::after{background:linear-gradient(180deg,rgba(13,14,19,.7) 0%,rgba(13,14,19,.35) 28%,rgba(13,14,19,.92) 66%,var(--ink) 100%)}.hero .eyebrow::before{display:none}.hero .eyebrow{font-size:.7rem;letter-spacing:.16em}html[lang="he"] .hero .eyebrow{font-size:.85rem;letter-spacing:0}}

@@ -26,7 +26,7 @@ var today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset
 f.date.min=today.toISOString().slice(0,10);
 function setErr(name,msg){var i=f[name],e=d.getElementById('e-'+name);i.setAttribute('aria-invalid',msg?'true':'false');e.textContent=msg||''}
 function shabbat(date,time){var day=new Date(date+'T12:00').getDay(),h=+(time||'12:00').slice(0,2);return (day===5&&h>=15)||(day===6&&h<20)}
-window.buildMsg=function(v){return [T.msgIntro,T.l_date+': '+v.date.split('-').reverse().join('/'),T.l_time+': '+v.time,T.l_people+': '+v.people,T.l_name+': '+v.name,T.l_phone+': '+v.phone].concat(v.note?[T.l_note+': '+v.note]:[]).join('\n')};
+window.buildMsg=function(v){return [T.msgIntro,T.l_date+T.sep+v.date.split('-').reverse().join('/'),T.l_time+T.sep+v.time,T.l_people+T.sep+v.people,T.l_name+T.sep+v.name,T.l_phone+T.sep+v.phone].concat(v.note?[T.l_note+T.sep+v.note]:[]).join('\n')};
 window.waUrl=function(v){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(buildMsg(v))};
 f.addEventListener('submit',function(ev){ev.preventDefault();
  var v={date:f.date.value,time:f.time.value,people:f.people.value,name:f.name.value.trim(),phone:f.phone.value.trim(),note:f.note.value.trim()},bad=null;
